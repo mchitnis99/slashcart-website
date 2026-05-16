@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SlashCart — Slash Your Grocery Bill</title>
+<meta name="description" content="Upload your shopping list. AI finds the cheapest prices across every store that delivers to you. We only make money when you save money.">
+<meta property="og:title" content="SlashCart — Slash Your Grocery Bill">
+<meta property="og:description" content="AI finds the cheapest prices across every store that delivers to you. No subscription. We only make money when you save money.">
+<meta property="og:image" content="https://slashcart.app/og-image.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SlashCart — Slash Your Grocery Bill">
+<meta name="twitter:description" content="AI finds the cheapest prices across every store that delivers to you.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 76 68'><rect x='4' y='4' width='52' height='36' rx='6' fill='none' stroke='%23FAFAF8' stroke-width='3'/><circle cx='14' cy='56' r='6' fill='none' stroke='%23FAFAF8' stroke-width='3'/><circle cx='42' cy='56' r='6' fill='none' stroke='%23FAFAF8' stroke-width='3'/><line x1='52' y1='0' x2='20' y2='64' stroke='%23C8F135' stroke-width='5' stroke-linecap='round'/></svg>" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0A0A0A;
+  --white: #FAFAF8;
+  --lime: #C8F135;
+  --lime-dark: #9BBF1A;
+  --gray: #1A1A1A;
+  --gray2: #2A2A2A;
+  --gray3: #444;
+  --muted: #888;
+  --radius: 12px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em; }
+.mono { font-family: 'DM Mono', monospace; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px; letter-spacing: 0.08em;
+  color: var(--white); text-decoration: none;
+}
+.nav-logo span { color: var(--lime); }
+.nav-cta {
+  background: var(--lime); color: var(--black);
+  border: none; border-radius: 8px;
+  padding: 10px 22px; font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  text-decoration: none; transition: all 0.15s;
+  letter-spacing: -0.2px;
+}
+.nav-cta:hover { background: #d4f54a; transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,241,53,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(200,241,53,0.1);
+  border: 1px solid rgba(200,241,53,0.25);
+  border-radius: 30px; padding: 6px 16px;
+  font-size: 12px; font-weight: 500; color: var(--lime);
+  font-family: 'DM Mono', monospace; letter-spacing: 0.1em;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--lime); display: inline-block;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 14vw, 160px);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin-bottom: 8px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero-headline .slash { color: var(--lime); }
+.hero-headline .strike {
+  position: relative;
+  display: inline-block;
+}
+.hero-headline .strike::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%;
+  top: 50%; height: 6px;
+  background: var(--lime);
+  transform: translateY(-50%) rotate(-2deg);
+  border-radius: 3px;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 21px);
+  color: rgba(255,255,255,0.55);
+  max-width: 560px;
+  text-align: center;
+  margin: 32px auto 48px;
+  line-height: 1.5;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.hero-sub strong { color: var(--white); font-weight: 500; }
+
+/* WAITLIST FORM */
+.waitlist-form {
+  display: flex; gap: 12px;
+  max-width: 480px; width: 100%;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.waitlist-form input {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 15px; color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.waitlist-form input::placeholder { color: rgba(255,255,255,0.3); }
+.waitlist-form input:focus { border-color: rgba(200,241,53,0.4); }
+.waitlist-form button {
+  background: var(--lime); color: var(--black);
+  border: none; border-radius: 10px;
+  padding: 14px 24px; font-size: 15px; font-weight: 600;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  white-space: nowrap; transition: all 0.15s;
+}
+.waitlist-form button:hover { background: #d4f54a; transform: translateY(-1px); }
+
+.hero-social-proof {
+  margin-top: 24px;
+  font-size: 13px; color: rgba(255,255,255,0.35);
+  font-family: 'DM Mono', monospace;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.hero-social-proof span { color: var(--lime); }
+
+/* MARQUEE */
+.marquee-wrap {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 0;
+  overflow: hidden;
+  background: rgba(200,241,53,0.03);
+}
+.marquee-track {
+  display: flex; gap: 0;
+  animation: marquee 20s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 40px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.25);
+  white-space: nowrap;
+}
+.marquee-item .dot { color: var(--lime); font-size: 10px; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* HOW IT WORKS */
+section { padding: 100px 24px; }
+.section-inner { max-width: 1000px; margin: 0 auto; }
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.15em;
+  color: var(--lime); text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 8vw, 88px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin-bottom: 60px;
+}
+.section-title em { color: var(--lime); font-style: normal; }
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2px;
+}
+.step-card {
+  background: var(--gray);
+  padding: 40px 32px;
+  position: relative;
+  transition: background 0.2s;
+}
+.step-card:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.step-card:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+.step-card:hover { background: var(--gray2); }
+.step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px; line-height: 1;
+  color: rgba(200,241,53,0.15);
+  margin-bottom: 24px;
+  display: block;
+}
+.step-card h3 {
+  font-size: 18px; font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+.step-card p {
+  font-size: 15px; color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+/* SAVINGS DEMO */
+.savings-section {
+  background: var(--gray);
+  border-radius: 24px;
+  padding: 60px;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+.savings-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 48px;
+  align-items: start;
+}
+.list-side h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.12em;
+  color: var(--muted); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.grocery-list {
+  list-style: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.grocery-list li {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 14px; color: rgba(255,255,255,0.7);
+  display: flex; justify-content: space-between;
+}
+.grocery-list li:last-child { border-bottom: none; }
+.grocery-list .item-name { display: flex; align-items: center; gap: 8px; }
+.check { color: var(--lime); font-size: 12px; }
+
+.results-side h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.12em;
+  color: var(--lime); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.result-card {
+  background: rgba(200,241,53,0.05);
+  border: 1px solid rgba(200,241,53,0.15);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.result-card .store {
+  font-size: 12px; font-weight: 600; color: var(--lime);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.result-card .saving {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.result-card .amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px; color: var(--white);
+}
+.result-card .label {
+  font-size: 13px; color: rgba(255,255,255,0.4);
+}
+.result-card .tip {
+  margin-top: 10px;
+  font-size: 13px; color: rgba(255,255,255,0.45);
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.result-card .tip strong { color: var(--lime); font-weight: 500; }
+
+/* MODEL SECTION */
+.model-section { background: var(--lime); color: var(--black); }
+.model-section .section-title { color: var(--black); }
+.model-section .section-label { color: rgba(0,0,0,0.5); }
+.model-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center;
+}
+.model-text p {
+  font-size: 20px; line-height: 1.5;
+  color: rgba(0,0,0,0.7);
+  margin-bottom: 24px;
+}
+.model-text p strong { color: var(--black); font-weight: 600; }
+.model-stat {
+  background: var(--black);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+}
+.model-stat .big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 100px; line-height: 1;
+  color: var(--lime);
+}
+.model-stat .desc {
+  font-size: 16px; color: rgba(255,255,255,0.6);
+  margin-top: 8px;
+}
+.model-stat .sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: rgba(255,255,255,0.3);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* WHY SECTION */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+.why-card {
+  background: var(--gray);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: border-color 0.2s;
+}
+.why-card:hover { border-color: rgba(200,241,53,0.2); }
+.why-icon {
+  font-size: 28px; margin-bottom: 20px; display: block;
+}
+.why-card h3 {
+  font-size: 16px; font-weight: 600; margin-bottom: 10px;
+}
+.why-card p {
+  font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6;
+}
+
+/* CTA */
+.cta-section {
+  text-align: center;
+  padding: 120px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,241,53,0.1) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.cta-section .section-title { margin-bottom: 24px; }
+.cta-section p {
+  font-size: 18px; color: rgba(255,255,255,0.45);
+  max-width: 480px; margin: 0 auto 48px;
+}
+.cta-form {
+  display: flex; gap: 12px; justify-content: center;
+  max-width: 480px; margin: 0 auto;
+}
+.cta-form input {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 16px; color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.cta-form input::placeholder { color: rgba(255,255,255,0.3); }
+.cta-form input:focus { border-color: rgba(200,241,53,0.4); }
+.cta-form button {
+  background: var(--lime); color: var(--black);
+  border: none; border-radius: 10px;
+  padding: 16px 28px; font-size: 16px; font-weight: 600;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  white-space: nowrap; transition: all 0.15s;
+}
+.cta-form button:hover { background: #d4f54a; transform: translateY(-1px); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 40px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+footer .footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 0.08em;
+  color: var(--white);
+}
+footer .footer-logo span { color: var(--lime); }
+footer p {
+  font-size: 13px; color: rgba(255,255,255,0.25);
+  font-family: 'DM Mono', monospace;
+}
+
+/* SUCCESS STATE */
+.success-msg {
+  display: none;
+  color: var(--lime);
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .savings-demo { grid-template-columns: 1fr; }
+  .model-inner { grid-template-columns: 1fr; }
+  .savings-section { padding: 40px 24px; }
+  .waitlist-form { flex-direction: column; }
+  .waitlist-form button { align-self: flex-start; }
+  .cta-form { flex-direction: column; }
+  .cta-form button { align-self: flex-start; }
+  .step-card:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+  .step-card:last-child { border-radius: 0 0 var(--radius) var(--radius); }
+  footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" style="text-decoration:none;display:flex;align-items:center;gap:12px;">
+    <svg width="32" height="40" viewBox="0 0 76 68" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="4" width="52" height="36" rx="6" fill="none" stroke="#FAFAF8" stroke-width="2"/>
+      <path d="M56 16 L66 16 L72 4" fill="none" stroke="#FAFAF8" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="14" cy="56" r="6" fill="none" stroke="#FAFAF8" stroke-width="2"/>
+      <circle cx="42" cy="56" r="6" fill="none" stroke="#FAFAF8" stroke-width="2"/>
+      <line x1="52" y1="0" x2="20" y2="64" stroke="#C8F135" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <div style="line-height:1.05;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.06em;color:#FAFAF8;">SLASH</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.06em;color:#C8F135;">CART</div>
+    </div>
+  </a>
+  <a class="nav-cta" href="#waitlist">Join Waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    COMING SOON · JOIN THE WAITLIST
+  </div>
+  <h1 class="hero-headline display">
+    <span class="slash">SLASH</span><br>
+    YOUR<br>
+    <span class="strike">GROCERY</span><br>
+    BILL
+  </h1>
+  <p class="hero-sub">
+    Upload your shopping list. AI finds the cheapest prices across <strong>every store that delivers to you</strong> — including bulk deals you'd never think to check.
+  </p>
+  <form class="waitlist-form" id="hero-form" onsubmit="handleSubmit(event, 'hero-success')">
+    <input type="email" name="email" placeholder="your@email.com" required>
+    <button type="submit">Get Early Access</button>
+  </form>
+  <p class="success-msg" id="hero-success">✓ You're on the list. We'll be in touch.</p>
+  <p class="hero-social-proof">No subscription. <span>We only make money when you save money.</span></p>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">WALMART <span class="dot">◆</span> WHOLE FOODS <span class="dot">◆</span> INSTACART <span class="dot">◆</span> AMAZON FRESH <span class="dot">◆</span> TARGET <span class="dot">◆</span> COSTCO <span class="dot">◆</span> KROGER <span class="dot">◆</span> TRADER JOE'S <span class="dot">◆</span></div>
+    <div class="marquee-item">WALMART <span class="dot">◆</span> WHOLE FOODS <span class="dot">◆</span> INSTACART <span class="dot">◆</span> AMAZON FRESH <span class="dot">◆</span> TARGET <span class="dot">◆</span> COSTCO <span class="dot">◆</span> KROGER <span class="dot">◆</span> TRADER JOE'S <span class="dot">◆</span></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">How it works</p>
+    <h2 class="section-title display">UPLOAD<br>YOUR LIST.<br><em>YOU'RE DONE.</em></h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num display">01</span>
+        <h3>Upload your list</h3>
+        <p>Paste it in, type it out, or photo your handwritten list. Any format works — AI handles the rest.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num display">02</span>
+        <h3>AI searches every store</h3>
+        <p>We scan every store that delivers to your zip code in real time. Current prices, current stock — no stale databases.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num display">03</span>
+        <h3>You save. We earn.</h3>
+        <p>We show you exactly where to shop and how much you'll save. We take a small cut of your savings — nothing if you don't save.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section style="padding-top: 0;">
+  <div class="savings-section">
+    <p class="section-label">Live example</p>
+    <h2 class="section-title display">REAL <em>SAVINGS,</em><br>REAL FAST</h2>
+    <div class="savings-demo">
+      <div class="list-side">
+        <h4>Your list</h4>
+        <ul class="grocery-list">
+          <li><span class="item-name"><span class="check">✓</span> Olive oil (1L)</span></li>
+          <li><span class="item-name"><span class="check">✓</span> Chicken breast (2lb)</span></li>
+          <li><span class="item-name"><span class="check">✓</span> Greek yogurt (32oz)</span></li>
+          <li><span class="item-name"><span class="check">✓</span> Pasta (2 boxes)</span></li>
+          <li><span class="item-name"><span class="check">✓</span> Spinach (5oz bag)</span></li>
+          <li><span class="item-name"><span class="check">✓</span> Canned tomatoes (×4)</span></li>
+          <li><span class="item-name"><span class="check">✓</span> Eggs (dozen)</span></li>
+          <li><span class="item-name"><span class="check">✓</span> Almond milk (half gallon)</span></li>
+        </ul>
+      </div>
+      <div class="results-side">
+        <h4>SlashCart finds</h4>
+        <div class="result-card">
+          <div class="store">⚡ Best overall — Walmart</div>
+          <div class="saving">
+            <div class="amount display">$31.40</div>
+            <div class="label">vs. $47.20 at Whole Foods</div>
+          </div>
+          <div class="tip">You save <strong>$15.80</strong> on this shop alone</div>
+        </div>
+        <div class="result-card" style="background: rgba(200,241,53,0.08); border-color: rgba(200,241,53,0.25);">
+          <div class="store">📦 Bulk tip — Costco</div>
+          <div class="saving">
+            <div class="amount display">$18.90</div>
+            <div class="label">for olive oil + eggs in bulk</div>
+          </div>
+          <div class="tip">Split with a neighbor — saves you <strong>$22 over 3 months</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODEL -->
+<section class="model-section">
+  <div class="model-inner">
+    <div class="model-text">
+      <p class="section-label">Our model</p>
+      <h2 class="section-title display">WE WIN<br>WHEN<br><em style="color:var(--black);-webkit-text-stroke:2px var(--black)">YOU</em><br>WIN</h2>
+      <p>No subscription. No paywall. <strong>Zero upfront cost.</strong></p>
+      <p>We take a small percentage of what we save you. If we don't save you money, we don't make money. It's that simple.</p>
+    </div>
+    <div class="model-stat">
+      <div class="big display">$0</div>
+      <div class="desc" style="color: rgba(255,255,255,0.5);">to try SlashCart</div>
+      <div class="sub">We only charge when we save you money</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">Why SlashCart</p>
+    <h2 class="section-title display">BUILT FOR<br><em>RIGHT NOW</em></h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">📍</span>
+        <h3>Hyperlocal</h3>
+        <p>Searches only stores that actually deliver to your address. No showing you prices you can't access.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">⚡</span>
+        <h3>Real-time prices</h3>
+        <p>AI searches live — not a stale database. Prices are accurate when you shop, not last Tuesday.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">📦</span>
+        <h3>Bulk intelligence</h3>
+        <p>Spots when buying in bulk actually saves you money, net of what you'll realistically use.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🤝</span>
+        <h3>Split-cart savings</h3>
+        <p>Spots when bulk buys at Costco or Sam's Club beat per-unit prices — and suggests neighbors to split with so nothing goes to waste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="waitlist">
+  <div style="position: relative; z-index: 1;">
+    <p class="section-label" style="text-align:center;">Early access</p>
+    <h2 class="section-title display" style="margin-bottom: 24px;">STOP<br>OVERPAYING</h2>
+    <p>Join the waitlist. Be first to know when SlashCart launches in your area.</p>
+    <form class="cta-form" onsubmit="handleSubmit(event, 'cta-success')">
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <button type="submit">Join Waitlist →</button>
+    </form>
+    <p class="success-msg" id="cta-success">✓ You're on the list. We'll be in touch.</p>
+    <p style="margin-top: 20px; font-size: 13px; color: rgba(255,255,255,0.25); font-family: 'DM Mono', monospace;">No spam. No credit card. Just savings.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <svg width="24" height="30" viewBox="0 0 76 68" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="4" width="52" height="36" rx="6" fill="none" stroke="#FAFAF8" stroke-width="2"/>
+      <path d="M56 16 L66 16 L72 4" fill="none" stroke="#FAFAF8" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="14" cy="56" r="6" fill="none" stroke="#FAFAF8" stroke-width="2"/>
+      <circle cx="42" cy="56" r="6" fill="none" stroke="#FAFAF8" stroke-width="2"/>
+      <line x1="52" y1="0" x2="20" y2="64" stroke="#C8F135" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <div style="line-height:1.05;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.06em;color:#FAFAF8;">SLASH</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.06em;color:#C8F135;">CART</div>
+    </div>
+  </div>
+  <p>© 2026 SlashCart. Slash your grocery bill.</p>
+  <a href="mailto:hello@slashcart.app" style="color:rgba(255,255,255,0.2);font-size:13px;font-family:'DM Mono',monospace;text-decoration:none;">hello@slashcart.app</a>
+</footer>
+
+<script>
+async function handleSubmit(e, successId) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button');
+  const originalText = btn.textContent;
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/xkoydlnn', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    });
+    if (res.ok) {
+      btn.textContent = '✓ Done!';
+      btn.style.background = '#9BBF1A';
+      form.querySelector('input').disabled = true;
+      document.getElementById(successId).style.display = 'block';
+    } else {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  } catch {
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
