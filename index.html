@@ -111,6 +111,13 @@
 
     .hero h1 .highlight { color: var(--green); }
 
+    .hero-sub-large {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
     .hero-sub {
       font-size: 1.15rem;
       color: var(--muted);
@@ -418,16 +425,19 @@
 <body>
 
   <nav>
-    <a href="/" class="logo"><span class="logo-slash">/</span>SLASHCART</a>
+    <a href="/" class="logo">
+      <img src="slashcart-logo.svg" alt="SlashCart" height="32" style="display:block;">
+    </a>
     <a href="https://slashcart-app.vercel.app" class="cta-nav">Try the app →</a>
   </nav>
 
   <!-- HERO -->
   <section class="hero" id="top">
     <span class="hero-eyebrow">Now live — try it free</span>
-    <h1>Stop overpaying for<br><span class="highlight">pantry staples.</span></h1>
+    <h1>Slash Your <span class="highlight">Grocery Bill</span></h1>
+    <p class="hero-sub-large">Stop overpaying for pantry staples.</p>
     <p class="hero-sub">
-      Pantry staples, toiletries, and cleaning supplies make up <strong style="color:var(--white)">40–50% of your grocery bill</strong> — and most people never comparison shop them. We do it for you in seconds.
+      Pantry staples, toiletries, and cleaning supplies make up <strong style="color:var(--white)">40–50% of your grocery bill</strong> — and most people never comparison shop them or save by buying in bulk. We do it all for you in seconds!
     </p>
 
     <form class="waitlist-form" id="waitlist-form">
@@ -467,7 +477,7 @@
       <div class="step">
         <span class="step-num">02</span>
         <h3>We find your pantry staples</h3>
-        <p>AI identifies which items are pantry staples — things like laundry detergent, olive oil, cereal, paper towels. Fresh produce and meat are excluded.</p>
+        <p>SlashCart identifies which items are pantry staples — things like laundry detergent, olive oil, cereal, paper towels. Fresh produce and meat are excluded.</p>
       </div>
       <div class="step">
         <span class="step-num">03</span>
@@ -485,33 +495,33 @@
     <div class="example-box" style="margin-top: 3rem;">
       <p class="example-header">Live example — 5 pantry staples</p>
       <div class="example-row">
-        <span class="example-item">Tide Pods 42ct</span>
+        <span class="example-item">Tide Pods (42ct)</span>
         <span class="example-amazon">Amazon $27.24</span>
         <span class="example-best">Walmart $19.94 ✓</span>
       </div>
       <div class="example-row">
-        <span class="example-item">Cheerios 18oz</span>
+        <span class="example-item">Cheerios (18oz)</span>
         <span class="example-amazon">Amazon $6.29</span>
         <span class="example-best">Walmart $5.37 ✓</span>
       </div>
       <div class="example-row">
-        <span class="example-item">Olive Oil</span>
-        <span class="example-amazon">Amazon $30.74</span>
+        <span class="example-item">Olive Oil (16 fl oz)</span>
+        <span class="example-amazon">Amazon $9.99</span>
         <span class="example-best">Walmart $7.74 ✓</span>
       </div>
       <div class="example-row">
-        <span class="example-item">Paper Towels</span>
-        <span class="example-best">Amazon $22.86 ✓</span>
+        <span class="example-item">Paper Towels (6 double rolls)</span>
+        <span class="example-best">Amazon $6.97 ✓</span>
         <span class="example-walmart">Walmart $10.98</span>
       </div>
       <div class="example-row">
-        <span class="example-item">Campbell's Tomato Soup</span>
+        <span class="example-item">Campbell's Tomato Soup (10.75oz)</span>
         <span class="example-best">Amazon $1.19 ✓</span>
         <span class="example-walmart">Walmart $4.78</span>
       </div>
       <div class="example-savings">
-        <span class="example-savings-label">Buy in bulk on Amazon and save</span>
-        <span class="example-savings-num">$778/year</span>
+        <span class="example-savings-label">💡 Buy Tide Pods in bulk on Amazon — save $323/year vs buying monthly</span>
+        <span class="example-savings-num">$323/yr</span>
       </div>
     </div>
   </section>
@@ -577,7 +587,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo"><span>/</span>SLASHCART</div>
+    <div class="footer-logo"><img src="slashcart-logo.svg" alt="SlashCart" height="24" style="opacity:0.7;"></div>
     <p>© 2026 SlashCart. All rights reserved.</p>
     <p style="margin-top: 0.5rem;">
       <a href="/privacy.html">Privacy Policy</a>
