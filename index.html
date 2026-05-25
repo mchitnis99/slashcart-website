@@ -105,6 +105,8 @@
       font-size: clamp(2.2rem, 5vw, 3.8rem);
       font-weight: 800;
       line-height: 1.1;
+      letter-spacing: -0.02em;
+      padding-bottom: 0.15em;
       margin-bottom: 1.5rem;
       color: var(--white);
     }
@@ -126,70 +128,23 @@
       line-height: 1.7;
     }
 
-    /* WAITLIST FORM */
-    .waitlist-form {
-      display: flex;
-      gap: 0.75rem;
-      max-width: 480px;
-      margin: 0 auto 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .waitlist-form input {
-      flex: 1;
-      min-width: 220px;
-      background: var(--navy-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.8rem 1.1rem;
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .waitlist-form input:focus { border-color: var(--green); }
-    .waitlist-form input::placeholder { color: var(--muted); }
-
-    .waitlist-form button {
+    /* HERO CTA BUTTON */
+    .hero-cta {
+      display: inline-block;
       background: var(--green);
       color: #000;
       font-weight: 700;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      border: none;
+      font-size: 1.05rem;
       border-radius: 8px;
-      padding: 0.8rem 1.5rem;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      white-space: nowrap;
-    }
-
-    .waitlist-form button:hover { background: var(--green-dim); }
-    .waitlist-form button:active { transform: scale(0.98); }
-
-    .success-msg {
-      display: none;
-      color: var(--green);
-      font-size: 0.95rem;
-      margin-top: 0.5rem;
-    }
-
-    .try-app {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .try-app a {
-      color: var(--green);
+      padding: 0.9rem 2rem;
       text-decoration: none;
-      font-weight: 500;
+      transition: background 0.2s, transform 0.1s;
+      margin-bottom: 1rem;
     }
 
-    .try-app a:hover { text-decoration: underline; }
+    .hero-cta:hover { background: var(--green-dim); }
+    .hero-cta:active { transform: scale(0.98); }
 
     /* STAT STRIP */
     .stats {
@@ -433,19 +388,14 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <span class="hero-eyebrow">Now live — try it free</span>
+    <span class="hero-eyebrow">Free to use</span>
     <h1>Slash Your <span class="highlight">Grocery Bill</span></h1>
     <p class="hero-sub-large">Stop overpaying for pantry staples.</p>
     <p class="hero-sub">
       Pantry staples, toiletries, and cleaning supplies make up <strong style="color:var(--white)">40–50% of your grocery bill</strong> — and most people never comparison shop them or save by buying in bulk. We do it all for you in seconds!
     </p>
 
-    <form class="waitlist-form" id="waitlist-form">
-      <input type="email" placeholder="Your email address" required id="email-input">
-      <button type="submit">Get Early Access</button>
-    </form>
-    <p class="success-msg" id="success-msg">✓ You're on the list. We'll be in touch.</p>
-    <p class="try-app">Already want to try it? <a href="https://app.slashcart.app">Open the app →</a></p>
+    <a href="https://app.slashcart.app" class="hero-cta">Start saving now — it's free →</a>
   </section>
 
   <!-- STATS -->
@@ -562,22 +512,17 @@
       </div>
       <div class="why-card">
         <span class="why-icon">🧾</span>
-        <h3>Receipt upload</span>
-        <h3>Upload a receipt or paste any list format. AI extracts and categorizes everything.</p>
+        <h3>Receipt upload</h3>
+        <p>Upload a receipt or paste any list format. AI extracts and categorizes everything.</p>
       </div>
     </div>
   </section>
 
   <!-- FINAL CTA -->
-  <section class="cta-section" id="waitlist">
+  <section class="cta-section" id="cta">
     <h2>Stop overpaying.<br>Start slashing.</h2>
-    <p>Join the waitlist and be first to know about new stores, features, and savings.</p>
-    <form class="waitlist-form" id="waitlist-form-2" style="justify-content:center;">
-      <input type="email" placeholder="Your email address" required id="email-input-2">
-      <button type="submit">Join Waitlist →</button>
-    </form>
-    <p class="success-msg" id="success-msg-2" style="margin-top:0.75rem;">✓ You're on the list. We'll be in touch.</p>
-    <p class="try-app" style="margin-top: 1rem;">Or just <a href="https://app.slashcart.app">try the app now — it's free →</a></p>
+    <p>Compare prices across Amazon and Walmart in seconds. Free, no account required.</p>
+    <a href="https://app.slashcart.app" class="hero-cta">Try SlashCart free →</a>
     <p class="disclosure" style="margin-top: 2rem;">
       SlashCart is a participant in the Amazon Services LLC Associates Program and the Walmart Affiliate Program. 
       We may earn a commission when you purchase through our links at no additional cost to you. 
@@ -597,24 +542,7 @@
   </footer>
 
   <script>
-    // Waitlist form handler
-    function handleSubmit(formId, inputId, msgId) {
-      const form = document.getElementById(formId);
-      if (!form) return;
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById(inputId).value;
-        // Store in localStorage as fallback
-        const emails = JSON.parse(localStorage.getItem('slashcart_emails') || '[]');
-        emails.push({ email, date: new Date().toISOString() });
-        localStorage.setItem('slashcart_emails', JSON.stringify(emails));
-        form.style.display = 'none';
-        document.getElementById(msgId).style.display = 'block';
-      });
-    }
-
-    handleSubmit('waitlist-form', 'email-input', 'success-msg');
-    handleSubmit('waitlist-form-2', 'email-input-2', 'success-msg-2');
+    // No-op: email capture moved to the app
   </script>
 
 </body>
