@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Stop overpaying for pantry staples, toiletries and cleaning supplies. SlashCart compares prices across Amazon and Walmart — and shows you how much you save buying in bulk.">
-  <meta property="og:title" content="SlashCart — Slash Your Grocery Bill">
-  <meta property="og:description" content="Pantry staples, toiletries and cleaning supplies make up 40-50% of your grocery bill. We find you the best prices on Amazon and Walmart — including bulk deals.">
+  <meta name="description" content="Paste your grocery list or upload a receipt — SlashCart finds the best real cost per unit across Amazon and Walmart and builds your cart automatically.">
+  <meta property="og:title" content="SlashCart — Your grocery list. Best unit prices. Cart built. Done.">
+  <meta property="og:description" content="Paste your grocery list or upload a receipt — we find the best real cost per unit across Amazon and Walmart and build your cart automatically.">
   <meta property="og:image" content="https://slashcart.app/og-image.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <title>SlashCart — Slash Your Grocery Bill</title>
+  <title>SlashCart — Your grocery list. Best unit prices. Cart built. Done.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -64,8 +64,6 @@
       color: var(--white);
     }
 
-    .logo-slash { color: var(--green); }
-
     nav a.cta-nav {
       background: var(--green);
       color: #000;
@@ -113,13 +111,6 @@
 
     .hero h1 .highlight { color: var(--green); }
 
-    .hero-sub-large {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 0.75rem;
-    }
-
     .hero-sub {
       font-size: 1.15rem;
       color: var(--muted);
@@ -128,7 +119,6 @@
       line-height: 1.7;
     }
 
-    /* HERO CTA BUTTON */
     .hero-cta {
       display: inline-block;
       background: var(--green);
@@ -145,6 +135,12 @@
 
     .hero-cta:hover { background: var(--green-dim); }
     .hero-cta:active { transform: scale(0.98); }
+
+    .hero-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
 
     /* STAT STRIP */
     .stats {
@@ -172,7 +168,7 @@
       color: var(--muted);
     }
 
-    /* HOW IT WORKS */
+    /* SECTIONS */
     .section {
       max-width: 900px;
       margin: 0 auto;
@@ -196,6 +192,94 @@
       margin-bottom: 3rem;
     }
 
+    /* NOT A PRICE COMPARISON TOOL */
+    .not-comparison {
+      background: var(--navy-card);
+      border: 1px solid var(--green);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .not-comparison h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+
+    .not-comparison p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .comparison-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+
+    .comparison-col {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .comparison-col.highlight-col {
+      border-color: var(--green);
+      background: var(--green-glow);
+    }
+
+    .comparison-col h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      color: var(--muted);
+    }
+
+    .comparison-col.highlight-col h4 { color: var(--green); }
+
+    .comparison-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .comparison-col ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .comparison-col ul li::before {
+      content: '✗';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      opacity: 0.5;
+    }
+
+    .comparison-col.highlight-col ul li { color: var(--white); }
+
+    .comparison-col.highlight-col ul li::before {
+      content: '✓';
+      color: var(--green);
+      opacity: 1;
+    }
+
+    /* HOW IT WORKS */
     .steps {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -248,20 +332,23 @@
     }
 
     .example-row {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
       align-items: center;
       padding: 0.75rem 0;
       border-bottom: 1px solid var(--border);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      gap: 0.5rem;
     }
 
-    .example-row:last-child { border-bottom: none; }
+    .example-row:last-of-type { border-bottom: none; }
+    .example-row-header { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; }
 
     .example-item { color: var(--white); }
     .example-amazon { color: var(--muted); }
     .example-walmart { color: var(--muted); }
     .example-best { color: var(--green); font-weight: 600; }
+    .example-unit { font-size: 0.8rem; color: var(--green); font-weight: 600; }
 
     .example-savings {
       margin-top: 1.5rem;
@@ -272,6 +359,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .example-savings-label { font-size: 0.9rem; color: var(--green); }
@@ -360,9 +449,6 @@
       margin-bottom: 0.75rem;
     }
 
-    .footer-logo span { color: var(--green); }
-
-    /* DISCLOSURE */
     .disclosure {
       font-size: 0.78rem;
       color: var(--muted);
@@ -372,8 +458,9 @@
 
     @media (max-width: 600px) {
       .stats { gap: 1.5rem; }
-      .waitlist-form { flex-direction: column; }
-      .waitlist-form input, .waitlist-form button { width: 100%; }
+      .comparison-table { grid-template-columns: 1fr; }
+      .example-row { grid-template-columns: 2fr 1fr 1fr; }
+      .example-row .example-unit { display: none; }
     }
   </style>
 </head>
@@ -389,13 +476,12 @@
   <!-- HERO -->
   <section class="hero" id="top">
     <span class="hero-eyebrow">Free to use</span>
-    <h1>Slash Your <span class="highlight">Grocery Bill</span></h1>
-    <p class="hero-sub-large">Stop overpaying for pantry staples.</p>
+    <h1>Your grocery list.<br><span class="highlight">Best unit prices.</span><br>Cart built. Done.</h1>
     <p class="hero-sub">
-      Pantry staples, toiletries, and cleaning supplies make up <strong style="color:var(--white)">40–50% of your grocery bill</strong> — and most people never comparison shop them or save by buying in bulk. We do it all for you in seconds!
+      Paste your list or upload a receipt — we find the best real cost per unit across Amazon and Walmart and build your cart automatically.
     </p>
-
     <a href="https://app.slashcart.app" class="hero-cta">Start saving now — it's free →</a>
+    <p class="hero-note">Real prices. Live from Amazon & Walmart. Not estimates.</p>
   </section>
 
   <!-- STATS -->
@@ -405,17 +491,46 @@
       <span class="stat-label">of your grocery bill is pantry staples</span>
     </div>
     <div class="stat">
-      <span class="stat-num">$800+</span>
-      <span class="stat-label">avg. annual savings switching to bulk</span>
+      <span class="stat-num">$/unit</span>
+      <span class="stat-label">the number that actually tells you who's cheaper</span>
     </div>
     <div class="stat">
-      <span class="stat-num">2 stores</span>
-      <span class="stat-label">Amazon & Walmart compared instantly</span>
+      <span class="stat-num">1 click</span>
+      <span class="stat-label">to build your cart across Amazon & Walmart</span>
     </div>
   </div>
 
-  <!-- HOW IT WORKS -->
+  <!-- NOT A PRICE COMPARISON TOOL -->
   <section class="section">
+    <p class="section-label">What makes SlashCart different</p>
+    <h2>Not a price comparison tool.<br>A buying tool.</h2>
+
+    <div class="comparison-table">
+      <div class="comparison-col">
+        <h4>Price comparison tools</h4>
+        <ul>
+          <li>Tell you where it might be cheaper</li>
+          <li>Compare shelf prices, not unit prices</li>
+          <li>You still have to go find each item</li>
+          <li>You still have to build your cart yourself</li>
+          <li>Give estimates, not live prices</li>
+        </ul>
+      </div>
+      <div class="comparison-col highlight-col">
+        <h4>SlashCart</h4>
+        <ul>
+          <li>Shows you the real cost per unit at each store</li>
+          <li>Compares $/oz, $/lb, $/count — not just shelf price</li>
+          <li>Finds the best deal on your whole list at once</li>
+          <li>Builds your cart automatically — one click to checkout</li>
+          <li>Live prices scraped from Amazon & Walmart today</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" style="padding-top: 0;">
     <p class="section-label">How it works</p>
     <h2>Upload your list.<br>We do the rest.</h2>
     <div class="steps">
@@ -426,52 +541,63 @@
       </div>
       <div class="step">
         <span class="step-num">02</span>
-        <h3>We find your pantry staples</h3>
-        <p>SlashCart identifies which items are pantry staples — things like laundry detergent, olive oil, cereal, paper towels. Fresh produce and meat are excluded.</p>
+        <h3>We fetch real prices</h3>
+        <p>SlashCart scrapes live prices from Amazon and Walmart — not estimates, not cached data from last month. What you see is what they're charging today.</p>
       </div>
       <div class="step">
         <span class="step-num">03</span>
-        <h3>See prices + bulk savings</h3>
-        <p>We compare Amazon and Walmart prices in real time. Where buying in bulk saves you money, we show you exactly how much — per year.</p>
+        <h3>See the real cost per unit</h3>
+        <p>We normalize everything to $/oz, $/lb, $/count so you're comparing apples to apples — not a 12oz bottle to a 16oz bottle at face value.</p>
       </div>
       <div class="step">
         <span class="step-num">04</span>
-        <h3>Add to cart in one click</h3>
-        <p>Hit "Add all to Amazon cart" and your entire pantry list is pre-filled. No searching, no clicking around.</p>
+        <h3>Check out in one click</h3>
+        <p>Pick Amazon, Walmart, or split across both. Hit checkout — your cart is pre-filled. No hunting for each item individually.</p>
       </div>
     </div>
 
     <!-- LIVE EXAMPLE -->
     <div class="example-box" style="margin-top: 3rem;">
       <p class="example-header">Live example — 5 pantry staples</p>
-      <div class="example-row">
-        <span class="example-item">Tide Pods (42ct)</span>
-        <span class="example-amazon">Amazon $27.24</span>
-        <span class="example-best">Walmart $19.94 ✓</span>
+      <div class="example-row example-row-header">
+        <span>Item</span>
+        <span>Amazon</span>
+        <span>Walmart</span>
+        <span>Best unit price</span>
       </div>
       <div class="example-row">
-        <span class="example-item">Cheerios (18oz)</span>
-        <span class="example-amazon">Amazon $6.29</span>
-        <span class="example-best">Walmart $5.37 ✓</span>
+        <span class="example-item">Colgate Toothpaste</span>
+        <span class="example-amazon">$2.96 · 4.6oz</span>
+        <span class="example-best">$1.12 · 2.5oz ✓</span>
+        <span class="example-unit">Walmart $0.45/oz vs $0.64/oz</span>
       </div>
       <div class="example-row">
-        <span class="example-item">Olive Oil (16 fl oz)</span>
-        <span class="example-amazon">Amazon $9.99</span>
-        <span class="example-best">Walmart $7.74 ✓</span>
+        <span class="example-item">Extra Virgin Olive Oil</span>
+        <span class="example-best">$5.78 · 16.9 fl oz ✓</span>
+        <span class="example-walmart">$4.68 · 8.5 fl oz</span>
+        <span class="example-unit">Amazon $0.34/fl oz vs $0.55/fl oz</span>
       </div>
       <div class="example-row">
-        <span class="example-item">Paper Towels (6 double rolls)</span>
-        <span class="example-best">Amazon $6.97 ✓</span>
-        <span class="example-walmart">Walmart $10.98</span>
+        <span class="example-item">All Purpose Flour</span>
+        <span class="example-amazon">$1.19 · 2 lb</span>
+        <span class="example-best">$2.38 · 5 lb ✓</span>
+        <span class="example-unit">Walmart $0.48/lb vs $0.59/lb</span>
       </div>
       <div class="example-row">
-        <span class="example-item">Campbell's Tomato Soup (10.75oz)</span>
-        <span class="example-best">Amazon $1.19 ✓</span>
-        <span class="example-walmart">Walmart $4.78</span>
+        <span class="example-item">Q-Tips Cotton Swabs</span>
+        <span class="example-best">$3.87 · 500ct ✓</span>
+        <span class="example-walmart">$24.98 · 2000ct</span>
+        <span class="example-unit">Amazon $0.008/swab vs $0.012/swab</span>
+      </div>
+      <div class="example-row">
+        <span class="example-item">Dark Brown Sugar</span>
+        <span class="example-best">$2.07 · 2 lb ✓</span>
+        <span class="example-walmart">$3.98 · 20oz</span>
+        <span class="example-unit">Amazon $1.03/lb vs $3.18/lb</span>
       </div>
       <div class="example-savings">
-        <span class="example-savings-label">💡 Buy Tide Pods in bulk on Amazon — save $323/year vs buying monthly</span>
-        <span class="example-savings-num">$323/yr</span>
+        <span class="example-savings-label">💡 Split cart saves you $X vs buying everything at one store — cart built automatically</span>
+        <span class="example-savings-num">1 click</span>
       </div>
     </div>
   </section>
@@ -493,39 +619,39 @@
   <!-- WHY -->
   <section class="section" style="padding-top: 0;">
     <p class="section-label">Why SlashCart</p>
-    <h2>Built for the part of your<br>grocery bill you ignore.</h2>
+    <h2>The number on the shelf<br>isn't the whole story.</h2>
     <div class="why-grid">
       <div class="why-card">
-        <span class="why-icon">📦</span>
-        <h3>Bulk savings math</h3>
-        <p>We calculate exactly how much you save buying in bulk vs. single units monthly. No guessing.</p>
+        <span class="why-icon">⚖️</span>
+        <h3>Real unit price comparison</h3>
+        <p>We normalize to $/oz, $/lb, $/count so you see which store is actually cheaper — even when sizes differ.</p>
       </div>
       <div class="why-card">
         <span class="why-icon">⚡</span>
-        <h3>Instant results</h3>
-        <p>Results are cached so repeat searches are instant. Most common items load in under a second.</p>
+        <h3>Live prices, not estimates</h3>
+        <p>Prices are scraped directly from Amazon and Walmart. What you see is what they're charging right now.</p>
       </div>
       <div class="why-card">
         <span class="why-icon">🛒</span>
-        <h3>One-click cart</h3>
-        <p>Add your entire pantry list to Amazon in one click. No hunting for each item individually.</p>
+        <h3>Cart built automatically</h3>
+        <p>Choose Amazon, Walmart, or split across both. Your cart is pre-filled — just hit checkout.</p>
       </div>
       <div class="why-card">
         <span class="why-icon">🧾</span>
-        <h3>Receipt upload</h3>
-        <p>Upload a receipt or paste any list format. AI extracts and categorizes everything.</p>
+        <h3>Your whole list at once</h3>
+        <p>Paste a list or upload a receipt. We handle every item simultaneously — not one search at a time.</p>
       </div>
     </div>
   </section>
 
   <!-- FINAL CTA -->
   <section class="cta-section" id="cta">
-    <h2>Stop overpaying.<br>Start slashing.</h2>
-    <p>Compare prices across Amazon and Walmart in seconds. Free, no account required.</p>
+    <h2>Your list. Best unit prices.<br>Cart built. Done.</h2>
+    <p>Free to use. No account required. Real prices from Amazon & Walmart.</p>
     <a href="https://app.slashcart.app" class="hero-cta">Try SlashCart free →</a>
     <p class="disclosure" style="margin-top: 2rem;">
-      SlashCart is a participant in the Amazon Services LLC Associates Program and the Walmart Affiliate Program. 
-      We may earn a commission when you purchase through our links at no additional cost to you. 
+      SlashCart is a participant in the Amazon Services LLC Associates Program and the Walmart Affiliate Program.
+      We may earn a commission when you purchase through our links at no additional cost to you.
       <a href="/affiliate.html" style="color: var(--muted); text-decoration: underline;">Affiliate Disclosure</a>
     </p>
   </section>
@@ -540,10 +666,6 @@
       <a href="mailto:hello@slashcart.app">Contact</a>
     </p>
   </footer>
-
-  <script>
-    // No-op: email capture moved to the app
-  </script>
 
 </body>
 </html>
